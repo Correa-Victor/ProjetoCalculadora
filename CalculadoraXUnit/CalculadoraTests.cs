@@ -1,21 +1,25 @@
 ﻿using CalculadoraUtil;
+using Moq;
 using Xunit;
 
 namespace CalculadoraXUnit
 {
     public class CalculadoraTests : IDisposable
     {
-        private Calculadora _calc;
+        private ICalculadora _calc;
+        private Mock<ICalculadora> _calcMock;
 
         public CalculadoraTests()
         {
-            _calc = new Calculadora();
+            _calcMock = new Mock<ICalculadora>();
+            _calc = _calcMock.Object;
         }
 
         [Fact]
         public void TestSomar()
         {
-             Assert.Equal(4, _calc.Somar(2, 2));
+             //Assert.Equal(4, _calc.Somar(2, 2));
+            _calcMock.Setup(m => m.Somar(2,2)).Returns(4);
         }
 
         [Fact]
